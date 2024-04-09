@@ -8,7 +8,7 @@ class VPNChecker {
   final _channel = const MethodChannel('vpn_check');
 
   final _vpnChangeController = StreamController<bool>.broadcast();
-  late final StreamSubscription<ConnectivityResult> _onConnectionChanged;
+  late final StreamSubscription<List<ConnectivityResult>> _onConnectionChanged;
 
   VPNChecker() {
     final connectivity = Connectivity();
@@ -22,7 +22,7 @@ class VPNChecker {
   /// events by specify [cancelOnError] as false
   Stream<bool> get vpnActivityStream => _vpnChangeController.stream;
 
-  Future<void> _connectionHandler(ConnectivityResult result) async {
+  Future<void> _connectionHandler(List<ConnectivityResult> result) async {
     if (result == ConnectivityResult.bluetooth) {
       return;
     }
