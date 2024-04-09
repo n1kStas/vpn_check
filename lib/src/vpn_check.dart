@@ -23,11 +23,11 @@ class VPNChecker {
   Stream<bool> get vpnActivityStream => _vpnChangeController.stream;
 
   Future<void> _connectionHandler(List<ConnectivityResult> result) async {
-    if (result == ConnectivityResult.bluetooth) {
+    if (result.contains(ConnectivityResult.bluetooth)) {
       return;
     }
 
-    if (result == ConnectivityResult.none) {
+    if (result.contains(ConnectivityResult.none)) {
       _vpnChangeController.sink.add(false);
     } else {
       try {
